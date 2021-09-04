@@ -236,31 +236,39 @@ GOO_LIST = (
 
 YEAR_GENERATOR = range(2010, 2019)  # 2010~2018년까지
 
-DISTANCE_LISTS = ["100m", "200m", "300m", "400m", "500m", "600m"]
+DISTANCE_LISTS = ["100m", "200m", "300m", "400m", "500m"]
+TYPE_LISTS = ["연립다세대", "오피스텔", "아파트"]
 print(local_path)
-f = open("output.csv", "w", encoding="utf-8")
+f = open("output.csv", "w",  newline='',encoding="utf-8")
 wr = csv.writer(f)
 
-for YEAR in YEAR_GENERATOR:
-    for GOO_NAME in GOO_LIST:
-        try:
-            info[str(YEAR)][GOO_NAME]
-            first_row = [GOO_NAME + str(YEAR)] + DISTANCE_LISTS
-            rows = [first_row]
-            for TYPE in list(info[str(YEAR)][GOO_NAME].keys()):
-                row = [TYPE]
-                for DISTANCE in DISTANCE_LISTS:
-                    try:
-                        row.append(info[str(YEAR)][GOO_NAME][TYPE][DISTANCE])
-                    except:
-                        row.append("NO_EXIST")
-                rows.append(row)
-            rows.append([])
-            rows.append([])
-            wr.writerows(rows)
-            print(rows)
-        except:
-            print(f"NO {GOO_NAME}")
+for GOO_NAME in GOO_LIST:
+    for TYPE in TYPE_LISTS:
+        rows = [[DISTANCE] for DISTANCE in DISTANCE_LISTS]
+        print(rows)
+        first_row = [GOO_NAME + "_" + str(TYPE)]
+
+        for year in range(2010, 2019):  # 두번 연속으로 해야한다.
+            first_row.append(str(year))
+        for year in range(2010, 2019):
+            first_row.append(str(year))
+
+        for YEAR in YEAR_GENERATOR:
+            for i, DISTANCE in enumerate(DISTANCE_LISTS):
+                try:
+                    rows[i].append(info[str(YEAR)][GOO_NAME][TYPE][DISTANCE]["price"])
+                except KeyError:
+                    rows[i].append("NO_EXIST")
+        for YEAR in YEAR_GENERATOR:
+            for i, DISTANCE in enumerate(DISTANCE_LISTS):
+                try:
+                    rows[i].append(info[str(YEAR)][GOO_NAME][TYPE][DISTANCE]["count"])
+                except KeyError:
+                    rows[i].append("NO_EXIST")
+        rows.insert(0, first_row)
+        rows.append([])
+        rows.append([])
+        wr.writerows(rows)
 
         # for TYPE in info[str(YEAR)][GOO_NAME]:
         #     row = []
