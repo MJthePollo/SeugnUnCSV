@@ -58,144 +58,19 @@ for local_path in os.listdir(folder):
             if line[PURCHASE_TYPE] == "매매":
                 try:
                     info[line[CONTRACT_YEAR]]
-                    try:
-                        info[line[CONTRACT_YEAR]][line[GOO]]
-                        try:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]]
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
-                        except KeyError:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]] = {}
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
-                    except KeyError:
-                        info[line[CONTRACT_YEAR]][line[GOO]] = {}
-                        try:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]]
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
-                        except KeyError:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]] = {}
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
-                except:
+                except KeyError:
                     info[line[CONTRACT_YEAR]] = {}
+                finally:
                     try:
                         info[line[CONTRACT_YEAR]][line[GOO]]
-                        try:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]]
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
-                        except KeyError:
-                            info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]] = {}
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
                     except KeyError:
                         info[line[CONTRACT_YEAR]][line[GOO]] = {}
+                    finally:
                         try:
                             info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]]
-                            try:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = get_new_mean_value(
-                                    info[line[CONTRACT_YEAR]][line[GOO]][
-                                        line[TRANS_TYPE]
-                                    ][distance],
-                                    float(line[PRICE]) / float(line[AREA]),
-                                )
-                            except KeyError:
-                                info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
-                                    distance
-                                ] = {
-                                    "price": float(line[PRICE]) / float(line[AREA]),
-                                    "count": 1,
-                                }
                         except KeyError:
                             info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]] = {}
+                        finally:
                             try:
                                 info[line[CONTRACT_YEAR]][line[GOO]][line[TRANS_TYPE]][
                                     distance
@@ -212,6 +87,7 @@ for local_path in os.listdir(folder):
                                     "price": float(line[PRICE]) / float(line[AREA]),
                                     "count": 1,
                                 }
+                       
         f.close()
 
 
@@ -269,8 +145,3 @@ for GOO_NAME in GOO_LIST:
         rows.append([])
         rows.append([])
         wr.writerows(rows)
-
-        # for TYPE in info[str(YEAR)][GOO_NAME]:
-        #     row = []
-        #     row
-        #     wr.writerow(row)
